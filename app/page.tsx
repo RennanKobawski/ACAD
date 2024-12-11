@@ -20,11 +20,11 @@ export default function Home() {
             <h1 className="text-3xl font-bold text-black mt-10">
               Menu de Acesso Rápido
             </h1>
-            <article className="border-2 border-input rounded-lg w-[80%] p-6 mt-10">
-              <div className="flex flex-wrap justify-center gap-6">
+            <article className="border-2 border-input rounded-lg w-[80%] p-6 my-10">
+              <div className="flex flex-wrap justify-center gap-4">
                 {homePageCards.map((card) => (
                   <Link href={card.href} key={card.id}>
-                    <Card className="bg-transparent border-2 border-primary p-4 min-w-[200px] w-[250px] h-[300px] flex flex-col items-center justify-between">
+                    <Card className="bg-transparent border-2 border-primary p-4 min-w-[200px] w-[260px] h-[300px] flex flex-col items-center justify-between">
                       <CardContent className="flex items-center justify-center h-[50%]">
                         <Image
                           src={card.imageUrl!}
