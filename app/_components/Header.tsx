@@ -1,38 +1,65 @@
-import React from 'react'
-import TopHeader from './TopHeader'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardTitle } from './_ui/card'
-import { Dialog, DialogContent } from './_ui/dialog'
-import { DialogTrigger } from '@radix-ui/react-dialog'
-import { Button } from './_ui/button'
-import { LogInIcon } from 'lucide-react'
-import SignInDialog from './SignInDialog'
+'use client'
+import React from "react";
+import TopHeader from "./TopHeader";
+import Image from "next/image";
+import Link from "next/link";
+import { Dialog, DialogContent } from "./_ui/dialog";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Button } from "./_ui/button";
+import { LogInIcon } from "lucide-react";
+import SignInDialog from "./SignInDialog";
+import { signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarImage } from "./_ui/avatar";
 
 const Header = () => {
+  const { data: session } = useSession();
+  const handleLogOutClick = () => signOut();
+
   return (
     <header>
-        <TopHeader />
-        <div className='md:max-w-[80%] mx-auto'>
-          <div className='flex justify-between items-center m-4'>
-              <Link href="/">
-                  <Image src="/logo-cet.svg" width={160} height={100} alt="Logo CET" />
-              </Link>
+      <TopHeader />
+      <div className="sm:max-w-[80%] mx-auto">
+        <div className="flex justify-between items-center m-4">
+          <Link href="/">
+            <Image
+              src="/logo-cet.svg"
+              width={160}
+              height={100}
+              alt="Logo CET"
+            />
+          </Link>
 
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button size="icon">
-                    <LogInIcon/>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="w-[90%]">
-                  <SignInDialog />
-                </DialogContent>
-              </Dialog>
+          <div>
+            {session?.user ? (
+              <div className="flex items-center gap-2">
+                <Avatar>
+                  <AvatarImage src={session.user.image ?? ""} />
+                </Avatar>
+                <div>
+                  <p className="font-bold">{session.user.name}</p>
+                  <p className="text-xs">{session.user.email}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center gap-1 sm:gap-2">
+                <h2 className="font-bold text-base hidden sm:block">Faça seu Login</h2>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button size="icon">
+                      <LogInIcon color="#000"/>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-[80%] md:w-[40%] max-w-full">
+                    <SignInDialog />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            )}
           </div>
         </div>
+      </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

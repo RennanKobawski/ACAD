@@ -1,3 +1,5 @@
+import { title } from "process"
+
 export const socialMedias = [
     {
         id: 1, 
@@ -37,13 +39,38 @@ export const linksTopHeader = [
     }
 ]
 
-export const navbarLinks = [
+export const navbarLinksUCCOP = [
     {
         id: 1,
+        title: 'Atendimento 0800',
         href: '/atendimento-0800',
     },
     {
         id: 2,
+        title: 'Abertura de Talão',
         href: '/abertura-talao'
-    }
+    },
+    {
+        id: 3,
+        title: 'Lista de Materiais',
+        href: 'externo'
+    },
+]
+
+export const navbarLinksOperational = [
+    {
+        id: 1,
+        title: 'Atendimento 0800',
+        href: '/atendimento-0800',
+    },
+    {
+        id: 2,
+        title: 'Abertura de Talão',
+        href: '/abertura-talao'
+    },
+    {
+        id: 3,
+        title: 'Lista de Materiais',
+        href: 'externo'
+    },
 ]
