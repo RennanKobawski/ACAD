@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OperationalAgent
+  UCCOPAgent
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  image     String?
+  talons    Talon[]
+  events    Event[]
+  sessions   Session[]
+  role      Role      @default(OperationalAgent)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Talon {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  ht          Int
+  vtr         Int
+  responsible String
+  startHour   DateTime
+  endHour     DateTime
+  startKm     Int
+  endKm       Int
+  percKm      Int
+  startQar1   DateTime
+  endQar1     DateTime
+  startQar2   DateTime
+  endQar2     DateTime
+  note        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id             Int      @id @default(autoincrement())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  address        String
+  occasion       String
+  startTime      DateTime
+  vtr            Int
+  activationTime DateTime
+  endTime        DateTime
+  arrivalTime    Int
+  note           String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
