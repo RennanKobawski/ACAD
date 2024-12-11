@@ -3,13 +3,13 @@ import React from "react";
 import TopHeader from "./TopHeader";
 import Image from "next/image";
 import Link from "next/link";
-import { Dialog, DialogContent } from "./_ui/dialog";
-import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogTrigger } from "./_ui/dialog";
 import { Button } from "./_ui/button";
 import { LogInIcon } from "lucide-react";
 import SignInDialog from "./SignInDialog";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./_ui/avatar";
+import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger } from "./_ui/select";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -32,9 +32,23 @@ const Header = () => {
           <div>
             {session?.user ? (
               <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src={session.user.image ?? ""} />
-                </Avatar>
+                <Select>
+                  <SelectTrigger className="w-[60px]">
+                    <Avatar>
+                      <AvatarImage src={session.user.image ?? ""} />
+                    </Avatar>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>
+                        <Button variant="ghost" onClick={handleLogOutClick}>
+                          Sair da conta
+                        </Button>
+                      </SelectLabel>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                
                 <div>
                   <p className="font-bold">{session.user.name}</p>
                   <p className="text-xs">{session.user.email}</p>
