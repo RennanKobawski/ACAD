@@ -19,23 +19,28 @@ const Header = () => {
     <header>
       <TopHeader />
       <div className="sm:max-w-[80%] mx-auto">
-        <div className="flex justify-between items-center m-4">
+        <div className="flex justify-between items-center m-4 truncate">
           <Link href="/">
             <Image
               src="/logo-cet.svg"
               width={160}
               height={100}
               alt="Logo CET"
+              className="min-w-[80px]"
             />
           </Link>
 
           <div>
             {session?.user ? (
               <div className="flex items-center gap-2">
+                <div>
+                  <p className="font-bold">{session.user.name}</p>
+                  <p className="text-xs">{session.user.email}</p>
+                </div>
                 <Select>
                   <SelectTrigger className="w-[60px]">
                     <Avatar>
-                      <AvatarImage src={session.user.image ?? ""} />
+                      <AvatarImage src={session.user.image} />
                     </Avatar>
                   </SelectTrigger>
                   <SelectContent>
@@ -48,11 +53,6 @@ const Header = () => {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                
-                <div>
-                  <p className="font-bold">{session.user.name}</p>
-                  <p className="text-xs">{session.user.email}</p>
-                </div>
               </div>
             ) : (
               <div className="flex items-center justify-center gap-1 sm:gap-2">

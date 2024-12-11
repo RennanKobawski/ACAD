@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Montserrat } from "next/font/google";
 import AuthProvider from "./_providers/auth";
+import Footer from "./_components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
   weight: ["400", "500", "600", "700"],
-})
+});
 
 export const metadata: Metadata = {
   title: "VTX3 - CET Santos",
@@ -22,10 +23,13 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body
-        className={`${montserrat.variable} ${montserrat.variable} antialiased`}
+        className={`${montserrat.variable} antialiased`}
       >
         <AuthProvider>
-          {children}
+          <div className="flex flex-col min-h-screen">
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
         </AuthProvider>
       </body>
     </html>
