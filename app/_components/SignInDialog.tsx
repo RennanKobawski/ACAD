@@ -13,7 +13,7 @@ const SignInDialog = () => {
   const handleLoginWithGoogleClick = () => signIn("google");
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (status === "authenticated" && session.user.isNewUser) {
       router.push("/select-role");
     }
   }, [status, session, router]);

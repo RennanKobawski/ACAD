@@ -30,6 +30,7 @@ export const authOptions: AuthOptions = {
           where: { email: user.email },
           data: { role: existingUser.role || Role.UCCOPAgent, image: user.image },
         });
+        return true;
       } else {
         await prisma.user.create({
           data: {
@@ -40,7 +41,7 @@ export const authOptions: AuthOptions = {
           },
         });
       }
-      return true;
+      return '/select-role';
     },
     async session({ session, user }) {
       if (user) {
