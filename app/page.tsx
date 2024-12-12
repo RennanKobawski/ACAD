@@ -6,6 +6,7 @@ import { homePageCards } from "./_data";
 import { Card, CardContent, CardHeader } from "./_components/_ui/card";
 import Link from "next/link";
 import Image from "next/image";
+import GoogleInput from "./_components/GoogleInput";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -20,11 +21,11 @@ export default function Home() {
             <h1 className="text-3xl font-bold text-black mt-10">
               Menu de Acesso Rápido
             </h1>
-            <article className="border-2 border-input rounded-lg w-[80%] p-6 my-10">
-              <div className="flex flex-wrap justify-center gap-4">
+            <article className="flex items-center border-2 border-input rounded-lg w-[70%] my-10 py-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-4 min-w-[60%] max-w-[80%] mx-auto">
                 {homePageCards.map((card) => (
-                  <Link href={card.href} key={card.id}>
-                    <Card className="bg-transparent border-2 border-primary p-4 min-w-[200px] w-[260px] h-[300px] flex flex-col items-center justify-between">
+                  <Link href={card.href} key={card.id} className="w-fit">
+                    <Card className="bg-transparent border-2 border-primary p-4 min-w-[160px] w-[200px] h-[200px] flex flex-col items-center justify-between">
                       <CardContent className="flex items-center justify-center h-[50%]">
                         <Image
                           src={card.imageUrl!}
@@ -33,7 +34,7 @@ export default function Home() {
                           height={50}
                         />
                       </CardContent>
-                      <CardHeader className="text-center font-bold text-xl ">
+                      <CardHeader className="text-center font-bold text-lg ">
                         {card.title}
                       </CardHeader>
                     </Card>
@@ -45,13 +46,18 @@ export default function Home() {
         </main>
       ) : (
         <main>
-          <section className="flex flex-col justify-center items-center mt-10 gap-6">
-            <h1 className="text-2xl font-bold text-black">
-              Faça login para ter acesso ao sistema
-            </h1>
-            <p className="text-lg font-semibold text-muted-foreground">
-              Conecte-se com a sua conta do Google vinculada ao seu registro.
-            </p>
+          <section className="flex flex-col justify-center items-center mt-20">
+            <div className="flex flex-col justify-center items-center gap-10">
+              <h1 className="text-4xl font-bold text-black">
+              Faça seu login
+              </h1>
+              <p className="text-base font-semibold text-muted-foreground">
+              Entre com sua conta do Google vinculada a seu registro.
+              </p>
+            </div>
+            <div className="flex items-center w-[80%] mt-20">
+              <GoogleInput />
+            </div>
           </section>
         </main>
       )}

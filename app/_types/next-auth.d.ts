@@ -20,4 +20,9 @@ declare module "next-auth" {
     image?: string;
   }
 
+  
+    export enum Role  {
+      UCCOPAgent = "UCCOPAgent",
+      OperationalAgent = "OperationalAgent",
+    }
 }

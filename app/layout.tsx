@@ -3,6 +3,7 @@ import "./globals.css";
 import { Montserrat } from "next/font/google";
 import AuthProvider from "./_providers/auth";
 import Footer from "./_components/Footer";
+import { Toaster } from "./_components/_ui/sonner";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <Footer />
           </div>
+          <Toaster />
         </AuthProvider>
       </body>
     </html>

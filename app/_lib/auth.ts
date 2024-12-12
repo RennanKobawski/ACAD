@@ -3,7 +3,7 @@ import { AuthOptions } from "next-auth";
 import prisma from "./prisma";
 import GoogleProvider from "next-auth/providers/google";
 import { Adapter } from "next-auth/adapters";
-import { Role } from '@prisma/client'; 
+import { Role } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -28,9 +28,11 @@ export const authOptions: AuthOptions = {
       if (existingUser) {
         await prisma.user.update({
           where: { email: user.email },
-          data: { role: existingUser.role || Role.UCCOPAgent, image: user.image },
+          data: { 
+            role: existingUser.role || Role.UCCOPAgent, 
+            image: user.image 
+          },
         });
-        return true;
       } else {
         await prisma.user.create({
           data: {
@@ -41,19 +43,36 @@ export const authOptions: AuthOptions = {
           },
         });
       }
-      return '/select-role';
+
+      return true;
     },
+
     async session({ session, user }) {
       if (user) {
-        session.user = {
-          ...session.user,
-          id: user.id,
-          role: user.role || Role.UCCOPAgent,
-        };
+        // Adiciona campos personalizados à sessão
+        const dbUser = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: {
+            id: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        });
+
+        if (dbUser) {
+          session.user = {
+            ...session.user,
+            id: dbUser.id,
+            role: dbUser.role,
+            createdAt: dbUser.createdAt.toISOString(),
+            updatedAt: dbUser.updatedAt.toISOString(),
+          };
+        }
       }
+
       return session;
     },
   },
   secret: process.env.NEXT_AUTH_SECRET,
 };
-

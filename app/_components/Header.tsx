@@ -19,7 +19,7 @@ const Header = () => {
     <header>
       <TopHeader />
       <div className="sm:max-w-[80%] mx-auto">
-        <div className="flex justify-between items-center m-4 truncate">
+        <div className="flex justify-between items-center m-2 xs:my-4 truncate">
           <Link href="/">
             <Image
               src="/logo-cet.svg"
@@ -38,7 +38,7 @@ const Header = () => {
                   <p className="text-xs">{session.user.email}</p>
                 </div>
                 <Select>
-                  <SelectTrigger className="w-[60px]">
+                  <SelectTrigger className="w-[60px] hidden xs:flex">
                     <Avatar>
                       <AvatarImage src={session.user.image} />
                     </Avatar>
@@ -56,14 +56,14 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex items-center justify-center gap-1 sm:gap-2">
-                <h2 className="font-bold text-base hidden sm:block">Faça seu Login</h2>
+                <h2 className="font-bold text-base hidden sm:flex">Faça seu Login</h2>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size="icon">
-                      <LogInIcon color="#000"/>
+                    <Button size="icon" variant={"default"}>
+                      <LogInIcon color="#515151"/>
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="w-[80%] md:w-[40%] max-w-full">
+                  <DialogContent className="flex flex-col w-[80%] md:w-[40%] max-w-full">
                     <SignInDialog />
                   </DialogContent>
                 </Dialog>
