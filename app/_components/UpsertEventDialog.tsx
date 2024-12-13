@@ -22,6 +22,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { upsertEvent } from "../_actions/upsert-events/upsert-event";
 import { z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./_ui/select";
+import { EVENT_TYPES } from "../_constants/events";
+import { Textarea } from "./_ui/textarea";
+import { DatePicker } from "./_ui/date-picker";
 
 interface UpsertEventDialogProps {
   isOpen: boolean;
@@ -35,19 +45,15 @@ const formSchema = z.object({
     message: "O endereço é obrigatório.",
   }),
   occasion: z.string().trim().min(1, {
-    message: "A ocasião é obrigatória.",
+    message: "A ocorrência é obrigatória.",
   }),
   startTime: z.date({
     required_error: "A hora de início é obrigatória.",
   }),
   vtr: z.number().positive(),
-  activationTime: z.date({
-    required_error: "A hora de ativação é obrigatória.",
-  }),
-  endTime: z.date({
-    required_error: "A hora de fim é obrigatória.",
-  }),
-  arrivalTime: z.number().positive(),
+  activationTime: z.date(),
+  endTime: z.date(),
+  arrivalTime: z.date(),
   note: z.string(),
   userId: z.string().uuid(),
 });
@@ -109,7 +115,7 @@ const UpsertEventDialog = ({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col"
+            className="flex flex-col gap-2"
           >
             <FormField
               control={form.control}
@@ -130,72 +136,75 @@ const UpsertEventDialog = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ocorrência</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Digite a ocorrência..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="startTime"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Hora de Início</FormLabel>
-                  <Input
-                    type="datetime-local"
-                    {...field}
-                    value={
-                      field.value && field.value instanceof Date
-                        ? field.value.toISOString().slice(0, 16)
-                        : ""
-                    }
-                  />
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione uma ocorrência" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Object.entries(EVENT_TYPES).map(([key, value]) => (
+                        <SelectItem key={key} value={key}>
+                          {value}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="activationTime"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Hora de Acionamento</FormLabel>
-                  <Input
-                    type="datetime-local"
-                    {...field}
-                    value={
-                      field.value && field.value instanceof Date
-                        ? field.value.toISOString().slice(0, 16)
-                        : ""
-                    }
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex  gap-10">
+              <FormField
+                control={form.control}
+                name="startTime"
+                render={({ field }) => (
+                  <FormItem className="w-full sm:w-1/2">
+                    <FormLabel>Hora de Início</FormLabel>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="endTime"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Hora Final</FormLabel>
-                  <Input
-                    type="datetime-local"
-                    {...field}
-                    value={
-                      field.value && field.value instanceof Date
-                        ? field.value.toISOString().slice(0, 16)
-                        : ""
-                    }
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="activationTime"
+                render={({ field }) => (
+                  <FormItem className="w-full sm:w-1/2">
+                    <FormLabel>Hora de Acionamento</FormLabel>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="flex gap-10">
+              <FormField
+                control={form.control}
+                name="arrivalTime"
+                render={({ field }) => (
+                  <FormItem className="w-full sm:w-1/2">
+                    <FormLabel>Hora de Chegada</FormLabel>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="endTime"
+                render={({ field }) => (
+                  <FormItem className="w-full sm:w-1/2">
+                    <FormLabel>Hora Final</FormLabel>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
@@ -204,7 +213,10 @@ const UpsertEventDialog = ({
                 <FormItem>
                   <FormLabel>Observação</FormLabel>
                   <FormControl>
-                    <Input placeholder="Digite uma observação..." {...field} />
+                    <Textarea
+                      placeholder="Digite uma observação..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

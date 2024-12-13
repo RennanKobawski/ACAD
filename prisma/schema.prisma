@@ -94,7 +94,7 @@ model Event {
   vtr            Int
   activationTime DateTime
   endTime        DateTime
-  arrivalTime    Int
+  arrivalTime    DateTime
   note           String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -21,7 +21,7 @@ const AddEventButton = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="rounded-full font-bold"
+              className="rounded-md font-bold"
               onClick={() => setDialogIsOpen(true)}
             >
               Adicionar transação

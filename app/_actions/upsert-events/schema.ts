@@ -8,6 +8,6 @@ export const upsertEventSchema = z.object({
   vtr: z.number().int().positive(),
   activationTime: z.date(),
   endTime: z.date(),
-  arrivalTime: z.number().int().positive(),
+  arrivalTime: z.date(),
   note: z.string().optional(),
 });

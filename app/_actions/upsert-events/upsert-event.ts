@@ -9,11 +9,11 @@ interface UpsertEventParams {
   id?: number;
   address: string;
   occasion: string;
-  startTime: Date;
   vtr: number;
+  startTime: Date;
   activationTime: Date;
+  arrivalTime: Date;
   endTime: Date;
-  arrivalTime: number;
   note: string;
   userId: string;
 }
