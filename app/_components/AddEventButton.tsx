@@ -21,11 +21,11 @@ const AddEventButton = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="rounded-md font-bold px-2 py-1"
+              className="rounded-md font-bold px-2 py-1 text-base"
               onClick={() => setDialogIsOpen(true)}
               size={'lg'}
             >
-              Adicionar transação
+              Adicionar ocorrência
               <PlusIcon />
             </Button>
           </TooltipTrigger>

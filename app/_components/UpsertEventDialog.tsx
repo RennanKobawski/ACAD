@@ -157,9 +157,9 @@ const UpsertEventDialog = ({
     >
       <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="flex flex-col jsutify-center rounded-lg max-w-[80%] sm:max-w-[600px]">
-        <DialogHeader>
+        <DialogHeader className="flex flex-col items-center">
           <DialogTitle className="text-xl font-bold">{isUpdate ? "Atualizar" : "Criar"} ocorrência</DialogTitle>
-          <DialogDescription className="font-semibold">Insira as informações abaixo</DialogDescription>
+          <DialogDescription className="font-semibold text-[#515151]">Insira as informações abaixo</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>

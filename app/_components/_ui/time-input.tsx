@@ -34,7 +34,7 @@ const TimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => {
         type="time"
         value={time}
         onChange={handleTimeChange}
-        className="p-2 border-2 rounded w-[96%]"
+        className="p-2 border-2 border-primary rounded-md w-[96%]"
       />
     </div>
   );
