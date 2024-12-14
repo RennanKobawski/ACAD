@@ -309,8 +309,8 @@ const UpsertEventDialog = ({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">
-                {isUpdate ? "Atualizar" : "Adicionar"}
+              <Button type="submit" className="w-[40%]">
+                {isUpdate ? "Atualizar" : "Adicionar"} ocorrência
               </Button>
             </DialogFooter>
           </form>

@@ -37,18 +37,18 @@ import {
             <TrashIcon />
           </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
+        <AlertDialogContent className="flex flex-col max-w-[80%] sm:w-[600px]">
+          <AlertDialogHeader className="flex flex-col gap-1 text-center">
+            <AlertDialogTitle className="text-xl">
               Você deseja realmente deletar essa transação?
             </AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="font-semibold text-destructive">
               Essa ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirmDeleteClick}>
+          <AlertDialogFooter className="flex justify-center items-center">
+            <AlertDialogCancel className="w-[50%] sm:w-[30%]">Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmDeleteClick} className="w-[50%] sm:w-[30%]">
               Continuar
             </AlertDialogAction>
           </AlertDialogFooter>

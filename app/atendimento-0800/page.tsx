@@ -53,10 +53,10 @@ const AtendimentoPage = ({ searchParams: { month, day } }: AtendimentoProps) => 
       <Header />
       <div className="flex flex-col space-y-6 overflow-hidden p-6">
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-2xl font-bold">Atendimento 0800</h1>
+          <h1 className="text-2xl font-bold"></h1> {/*Add filter input */}
           <AddEventButton />
         </div>
-        <ScrollArea className="h-full">
+        <ScrollArea className="h-full"> {/*  Arrumar scroll */}
           <DataTable
             columns={eventColumns}
             data={events}

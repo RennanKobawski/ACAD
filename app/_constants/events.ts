@@ -1,5 +1,5 @@
 export const EVENT_TYPES = [
-    "Não verificadas",
+    "Não verificada",
     "Cancelado",
     "Acidente com vítima fatal",
     "Acidente com vítima",

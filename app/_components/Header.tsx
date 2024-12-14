@@ -1,5 +1,5 @@
-'use client'
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import TopHeader from "./TopHeader";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +12,7 @@ import { Avatar, AvatarImage } from "./_ui/avatar";
 import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger } from "./_ui/select";
 
 const Header = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const handleLogOutClick = () => signOut();
 
   return (
@@ -37,14 +37,22 @@ const Header = () => {
                   <p className="font-bold">{session.user.name}</p>
                   <p className="text-xs">{session.user.email}</p>
                 </div>
+
                 <Select>
                   <SelectTrigger className="w-[60px] hidden xs:flex border-none">
                     <Avatar>
-                      <AvatarImage src={session.user.image} />
+                      <AvatarImage src={session.user.image || ""} />
                     </Avatar>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
+                      {session.user.role === "OperationalAgent" && session.user.updatedAt === session.user.createdAt && (
+                        <SelectLabel>
+                          <Link href="/select-role">
+                            <Button variant="ghost">Selecione seu setor</Button>
+                          </Link>
+                        </SelectLabel>
+                      )}
                       <SelectLabel>
                         <Button variant="ghost" onClick={handleLogOutClick}>
                           Sair da conta
@@ -60,7 +68,7 @@ const Header = () => {
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button size="icon" variant={"default"}>
-                      <LogInIcon color="#515151"/>
+                      <LogInIcon color="#515151" />
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="flex flex-col w-[80%] md:w-[40%] max-w-full">

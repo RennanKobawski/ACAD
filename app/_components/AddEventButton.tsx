@@ -23,6 +23,7 @@ const AddEventButton = () => {
             <Button
               className="rounded-md font-bold px-2 py-1"
               onClick={() => setDialogIsOpen(true)}
+              size={'lg'}
             >
               Adicionar transação
               <PlusIcon />

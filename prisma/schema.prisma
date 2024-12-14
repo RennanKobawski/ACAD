@@ -27,7 +27,7 @@ model User {
   events    Event[]
   sessions  Session[]
   account   Account[]
-  role      Role      @default(OperationalAgent)
+  role      Role     @default(OperationalAgent)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

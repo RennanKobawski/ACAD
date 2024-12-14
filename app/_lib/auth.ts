@@ -41,15 +41,14 @@ export const authOptions: AuthOptions = {
             role: Role.OperationalAgent,
             image: user.image || "",
           },
+
         });
       }
-
       return true;
     },
 
     async session({ session, user }) {
       if (user) {
-        // Adiciona campos personalizados à sessão
         const dbUser = await prisma.user.findUnique({
           where: { id: user.id },
           select: {

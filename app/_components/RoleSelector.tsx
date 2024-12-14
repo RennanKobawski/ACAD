@@ -19,8 +19,8 @@ const RoleSelector: React.FC<RoleSelectorProps> = ({ userId }) => {
         description: `Seu setor foi atribuído. Bom Trabalho!`,
       });
     } catch (error) {
-      toast("Erro", {
-        description: 'Falha ao atribuir o setor. Tente novamente',
+      toast("Você já pertence à esse setor.", {
+        description: 'Retorne para a Página Inicial. Bom trabalho!',
       });
     }
   };
