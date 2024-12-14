@@ -1,10 +1,10 @@
 "use server";
 
 import prisma from "@/app/_lib/prisma";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
 import { upsertEventSchema } from "./schema";
+import { authOptions } from "@/app/_lib/auth";
 
 interface UpsertEventParams {
   id?: number;
