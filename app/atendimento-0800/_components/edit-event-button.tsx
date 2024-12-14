@@ -28,6 +28,9 @@ const EditEventButton = ({ event }: EditEventButtonProps) => {
         setIsOpen={setDialogIsOpen}
         defaultValues={{
           ...event,
+          activationTime: event.activationTime || undefined,
+          endTime: event.endTime || undefined,
+          arrivalTime: event.arrivalTime || undefined,
         }}
         eventId={event.id}
       />

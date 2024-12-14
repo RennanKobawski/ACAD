@@ -34,6 +34,7 @@ import { Textarea } from "./_ui/textarea";
 import TimeInput from "./_ui/time-input";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { revalidatePath } from "next/cache";
 
 interface UpsertEventDialogProps {
   isOpen: boolean;
@@ -127,22 +128,23 @@ const UpsertEventDialog = ({
     const timeValidationResult = validateTimes(data);
     if (!timeValidationResult) return;
 
-    try {
       await upsertEvent({
         ...data,
         id: eventId,
       });
       toast.success(
         isUpdate
-          ? "Evento atualizado com sucesso!"
-          : "Evento criado com sucesso!"
+          ? "Ocorrência atualizada com sucesso!"
+          : "Ocorrência criada com sucesso!"
       );
       setIsOpen(false);
+      const searchParams = new URLSearchParams(window.location.search);
+      const month = searchParams.get("month") ?? "";
+      const day = searchParams.get("day") ?? "";
+  
+      const path = `/atendimento-0800?month=${month}&day=${day}`;
+      revalidatePath(path);
       form.reset();
-    } catch (error) {
-      console.error("Erro ao salvar evento:", error);
-      toast.error("Erro ao salvar a ocorrência. Tente novamente.");
-    }
   };
 
   const isUpdate = Boolean(eventId);

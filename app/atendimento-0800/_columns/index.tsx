@@ -1,3 +1,4 @@
+'use client'
 import { ColumnDef } from "@tanstack/react-table";
 import { Event } from "@prisma/client";
 import DeleteEventButton from "../_components/delete-event-button";
