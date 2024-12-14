@@ -3,6 +3,7 @@ import { Event } from "@prisma/client";
 import DeleteEventButton from "../_components/delete-event-button";
 import EditEventButton from "../_components/edit-event-button";
 import { EVENT_TYPES } from "@/app/_constants/events";
+import { useSession } from "next-auth/react";
 
 export const eventColumns: ColumnDef<Event>[] = [
   {
@@ -19,7 +20,7 @@ export const eventColumns: ColumnDef<Event>[] = [
         occasionIndex >= 0 &&
         occasionIndex < EVENT_TYPES.length
           ? EVENT_TYPES[occasionIndex]
-          : "Desconhecida"; 
+          : "Desconhecida";
       return occasion;
     },
   },
@@ -77,10 +78,15 @@ export const eventColumns: ColumnDef<Event>[] = [
     accessorKey: "actions",
     header: "Ações",
     cell: ({ row: { original: event } }) => {
+      const { data: session } = useSession();
+      const userRole = session?.user?.role; 
+
       return (
         <div className="flex">
           <EditEventButton event={event} />
-          <DeleteEventButton eventId={event.id} />
+          {userRole === "UCCOPAgent" && (
+            <DeleteEventButton eventId={event.id} />
+          )}
         </div>
       );
     },
