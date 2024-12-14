@@ -1,6 +1,11 @@
-import { authOptions } from "@/app/_lib/auth"
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
+import { authOptions } from "@/app/_lib/auth";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = NextAuth(authOptions)
+// Função GET com três argumentos (req, res, options)
+export const GET = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, authOptions);
 
-export { handler as GET, handler as POST, authOptions }
+// Função POST com três argumentos (req, res, options)
+export const POST = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, authOptions);
