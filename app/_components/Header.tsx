@@ -38,7 +38,7 @@ const Header = () => {
                   <p className="text-xs">{session.user.email}</p>
                 </div>
                 <Select>
-                  <SelectTrigger className="w-[60px] hidden xs:flex">
+                  <SelectTrigger className="w-[60px] hidden xs:flex border-none">
                     <Avatar>
                       <AvatarImage src={session.user.image} />
                     </Avatar>

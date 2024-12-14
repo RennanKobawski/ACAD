@@ -21,18 +21,17 @@ const AtendimentoPage = ({ searchParams: { month, day } }: AtendimentoProps) => 
   const { data: session } = useSession();
   const [events, setEvents] = useState<any[]>([]);
 
+  if (!session) {
+    redirect("/");
+  }
+  
   useEffect(() => {
     if (session) {
-      const userId = session.user.id;
-      getEvents(userId).then((data) => {
+      getEvents().then((data) => {
         setEvents(data);
       });
     }
   }, [session]);
-
-  if (!session) {
-    redirect("/");
-  }
 
   const monthIsInvalid = !month || !isMatch(month, "MM");
   const dayIsInvalid = !day || !isMatch(day, "dd");

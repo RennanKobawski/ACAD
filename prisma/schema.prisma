@@ -90,11 +90,11 @@ model Event {
   user           User     @relation(fields: [userId], references: [id])
   address        String
   occasion       String
+  vtr            String
   startTime      DateTime
-  vtr            Int
-  activationTime DateTime
-  endTime        DateTime
-  arrivalTime    DateTime
+  activationTime DateTime?
+  endTime        DateTime?
+  arrivalTime    DateTime?
   note           String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

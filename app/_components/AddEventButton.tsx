@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownUpIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { Button } from "./_ui/button";
 import { useState } from "react";
 import {
@@ -21,11 +21,11 @@ const AddEventButton = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="rounded-md font-bold"
+              className="rounded-md font-bold px-2 py-1"
               onClick={() => setDialogIsOpen(true)}
             >
               Adicionar transação
-              <ArrowDownUpIcon />
+              <PlusIcon />
             </Button>
           </TooltipTrigger>
           <TooltipContent></TooltipContent>

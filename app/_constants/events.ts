@@ -1,6 +1,6 @@
 export const EVENT_TYPES = [
     "Não verificadas",
-    "Canceladas",
+    "Cancelado",
     "Acidente com vítima fatal",
     "Acidente com vítima",
     "Acidente sem vítima",
@@ -142,4 +142,3 @@ export const EVENT_TYPES = [
     "Estacionado 90º",
     "Problema semafórico (waze)"
   ];
-  

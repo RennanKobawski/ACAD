@@ -12,6 +12,5 @@ export const deleteEvent = async ({
       id: eventId,
     },
   });
-  revalidatePath("/atendimento");
-  revalidatePath("/");
+  revalidatePath("/atendimento-0800");
 };

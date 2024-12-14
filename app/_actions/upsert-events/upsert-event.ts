@@ -1,7 +1,8 @@
 "use server";
 
-import prisma from '@/app/_lib/prisma'
-import { getSession } from "next-auth/react";
+import prisma from "@/app/_lib/prisma";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
 import { upsertEventSchema } from "./schema";
 
@@ -9,20 +10,20 @@ interface UpsertEventParams {
   id?: number;
   address: string;
   occasion: string;
-  vtr: number;
+  vtr: string;
   startTime: Date;
-  activationTime: Date;
-  arrivalTime: Date;
-  endTime: Date;
+  activationTime?: Date;
+  arrivalTime?: Date;
+  endTime?: Date;
   note: string;
-  userId: string;
 }
 
 export const upsertEvent = async (params: UpsertEventParams) => {
   upsertEventSchema.parse(params);
 
-  const session = await getSession();
-  if (!session) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user || !session.user.id) {
     throw new Error("Unauthorized");
   }
 
@@ -36,8 +37,9 @@ export const upsertEvent = async (params: UpsertEventParams) => {
     endTime,
     arrivalTime,
     note,
-    userId,
   } = params;
+
+  const userId = session.user.id;
 
   await prisma.event.upsert({
     update: {
@@ -67,5 +69,10 @@ export const upsertEvent = async (params: UpsertEventParams) => {
     },
   });
 
-  revalidatePath("/atendimento-0800");
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentDay = currentDate.getDate();
+
+  // Revalidando a página com base no mês e dia
+  revalidatePath(`/atendimento-0800?month=${currentMonth < 10 ? `0${currentMonth}` : currentMonth}&day=${currentDay < 10 ? `0${currentDay}` : currentDay}`);
 };
