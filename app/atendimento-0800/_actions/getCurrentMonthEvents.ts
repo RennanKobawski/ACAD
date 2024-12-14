@@ -1,12 +1,13 @@
 import { endOfMonth, startOfMonth } from "date-fns";
 import { getSession } from "next-auth/react"; 
+import { NextApiRequest } from "next"; 
 import prisma from '../../_lib/prisma';
 
-export const getCurrentMonthEvents = async (context: any) => {
+export const getCurrentMonthEvents = async (context: { req: NextApiRequest }) => {
   const session = await getSession({ req: context.req });
 
   if (!session) {
-    return ;
+    return;
   }
 
   const userId = session.user.id;

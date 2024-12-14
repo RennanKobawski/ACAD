@@ -1,14 +1,14 @@
 "use client";
 
 import { PlusIcon } from "lucide-react";
-import { Button } from "./_ui/button";
+import { Button } from "@/app/_components/_ui/button";
 import { useState } from "react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./_ui/tooltip";
+} from "@/app/_components/_ui/tooltip";
 import UpsertEventDialog from "./UpsertEventDialog";
 
 

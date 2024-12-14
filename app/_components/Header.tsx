@@ -12,7 +12,7 @@ import { Avatar, AvatarImage } from "./_ui/avatar";
 import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger } from "./_ui/select";
 
 const Header = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const handleLogOutClick = () => signOut();
 
   return (

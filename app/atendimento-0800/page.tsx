@@ -4,11 +4,11 @@ import Header from "../_components/Header";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { isMatch } from "date-fns";
-import AddEventButton from "../_components/AddEventButton";
 import { DataTable } from "../_components/_ui/data-table";
 import { ScrollArea } from "../_components/_ui/scroll-area";
 import { eventColumns } from "./_columns";
 import { getEvents } from "../_actions/getEvents";
+import AddEventButton from "./_components/AddEventButton";
 
 interface AtendimentoProps {
   searchParams: {
@@ -17,9 +17,24 @@ interface AtendimentoProps {
   };
 }
 
+interface Event {
+  id: number;
+  userId: string;
+  address: string;
+  occasion: string;
+  vtr: string;
+  startTime: Date;
+  activationTime: Date | null;
+  endTime: Date | null;
+  arrivalTime: Date | null;
+  note: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 const AtendimentoPage = ({ searchParams: { month, day } }: AtendimentoProps) => {
   const { data: session } = useSession();
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
 
   if (!session) {
     redirect("/");

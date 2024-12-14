@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/app/_components/_ui/button";
-import UpsertEventDialog from "@/app/_components/UpsertEventDialog";
 import { Event } from "@prisma/client";
 import { PencilIcon } from "lucide-react";
 import { useState } from "react";
+import UpsertEventDialog from "./UpsertEventDialog";
 
 interface EditEventButtonProps {
   event: Event;

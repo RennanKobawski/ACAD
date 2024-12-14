@@ -1,4 +1,4 @@
-import { Button } from "./_ui/button";
+import { Button } from "@/app/_components/_ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./_ui/dialog";
+} from "@/app/_components/_ui/dialog";
 import {
   Form,
   FormControl,
@@ -16,11 +16,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./_ui/form";
-import { Input } from "./_ui/input";
+} from "@/app/_components/_ui/form";
+import { Input } from "@/app/_components/_ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { upsertEvent } from "../_actions/upsert-events/upsert-event";
+import { upsertEvent } from "@/app/_actions/upsert-events/upsert-event";
 import { z } from "zod";
 import {
   Select,
@@ -28,10 +28,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./_ui/select";
-import { EVENT_TYPES } from "../_constants/events";
-import { Textarea } from "./_ui/textarea";
-import TimeInput from "./_ui/time-input";
+} from "@/app/_components/_ui/select";
+import { EVENT_TYPES } from "@/app/_constants/events";
+import { Textarea } from "@/app/_components/_ui/textarea";
+import TimeInput from "@/app/_components/_ui/time-input";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { revalidatePath } from "next/cache";
