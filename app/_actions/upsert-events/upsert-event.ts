@@ -68,11 +68,5 @@ export const upsertEvent = async (params: UpsertEventParams) => {
       id: id ?? 0,
     },
   });
-
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1;
-  const currentDay = currentDate.getDate();
-
-
-  revalidatePath(`/atendimento-0800?month=${currentMonth < 10 ? `0${currentMonth}` : currentMonth}&day=${currentDay < 10 ? `0${currentDay}` : currentDay}`);
+  revalidatePath(`/atendimento-0800`);
 };

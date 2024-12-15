@@ -34,7 +34,6 @@ import { Textarea } from "@/app/_components/_ui/textarea";
 import TimeInput from "@/app/_components/_ui/time-input";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
-import { revalidatePath } from "next/cache";
 
 interface UpsertEventDialogProps {
   isOpen: boolean;
@@ -119,35 +118,32 @@ const UpsertEventDialog = ({
     },
   });
 
+  
+  const isUpdate = Boolean(eventId);
+
   const onSubmit = async (data: FormSchema) => {
+
     if (!userId) {
       toast.error("Usuário não autenticado.");
       return;
     }
-
+  
     const timeValidationResult = validateTimes(data);
     if (!timeValidationResult) return;
 
-      await upsertEvent({
-        ...data,
-        id: eventId,
-      });
-      toast.success(
-        isUpdate
-          ? "Ocorrência atualizada com sucesso!"
-          : "Ocorrência criada com sucesso!"
-      );
-      setIsOpen(false);
-      const searchParams = new URLSearchParams(window.location.search);
-      const month = searchParams.get("month") ?? "";
-      const day = searchParams.get("day") ?? "";
-  
-      const path = `/atendimento-0800?month=${month}&day=${day}`;
-      revalidatePath(path);
-      form.reset();
+    await upsertEvent({
+      ...data,
+      id: eventId,
+    });
+ 
+    toast.success(
+      isUpdate
+        ? "Ocorrência atualizada com sucesso!"
+        : "Ocorrência criada com sucesso!"
+    );
+    setIsOpen(false);
+    form.reset();
   };
-
-  const isUpdate = Boolean(eventId);
 
   return (
     <Dialog
