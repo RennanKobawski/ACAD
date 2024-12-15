@@ -79,8 +79,8 @@ const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
           <div className="relative">
             <Input
               type="text"
-              placeholder="Pesquisar ocorrências..."
-              className="pl-4 pr-10 py-4 border-2 rounded-lg text-sm max-w-[150px]"
+              placeholder="Pesquisar..."
+              className="pl-4 sm:pr-10 py-4 border-2 rounded-lg text-sm max-w-[150px]"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -88,7 +88,7 @@ const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
               <SearchIcon size={22} />
             </div>
           </div>
-          <AddEventButton />
+          {session?.user?.role === "UCCOPAgent" && <AddEventButton />}
         </div>
         <DataTable columns={eventColumns} data={filteredEvents} />
       </div>
