@@ -16,22 +16,22 @@ export default function Home() {
     <div className="p-0 m-0">
       <Header />
       {session?.user ? (
-        <main>
+        <main className="text-center mt-10">
           <Navbar />
           <section className="flex flex-col items-center justify-center">
             <h1 className="text-3xl font-bold text-black mt-10">
               Menu de Acesso Rápido
             </h1>
-            <article className="flex items-center border-2 border-input rounded-lg w-[70%] my-10 py-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-4 min-w-[60%] max-w-[80%] mx-auto">
+            <article className="max-w-[80%] mx-auto border-2 border-input rounded-lg px-6 my-10 py-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {homePageCards.map((card) => {
                   const href = card.dynamic
                     ? generateDynamicUrl(card.href)
                     : card.href;
 
                   return (
-                    <Link href={href} key={card.id} className="w-fit">
-                      <Card className="bg-transparent border-2 border-primary p-4 min-w-[160px] w-[200px] h-[200px] flex flex-col items-center justify-between">
+                    <Link href={href} key={card.id} className="w-full">
+                      <Card className="bg-transparent border-2 border-primary p-2 h-[200px] max-w-[200px] flex flex-col items-center justify-between">
                         <CardContent className="flex items-center justify-center h-[50%]">
                           <Image
                             src={card.imageUrl!}
@@ -40,7 +40,7 @@ export default function Home() {
                             height={50}
                           />
                         </CardContent>
-                        <CardHeader className="text-center font-bold text-lg ">
+                        <CardHeader className="text-center font-bold text-lg">
                           {card.title}
                         </CardHeader>
                       </Card>

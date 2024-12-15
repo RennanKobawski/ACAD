@@ -9,7 +9,7 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <nav className='bg-primary w-full'>
+    <nav className='bg-primary w-full h-[30px]'>
       <div className='mx-auto max-w-[80%]'>
         {session?.user.role === 'OperationalAgent' ? (
           <div className='flex justify-start gap-4 py-1 text-sm text-center sm:text-base'>

@@ -33,7 +33,7 @@ const SelectRolePage = () => {
 
         {session?.user && <RoleSelector userId={session.user.id} />}
 
-        {/* Botão precisa de um revalidatePath para a pagina inicial, para "remover" a opção de selecionar setor */}
+        {/* Precisa fazer um revalidate path para retirar o "Selecione seu setor da Home Page" */}
         <Button
           variant={"outline"}
           onClick={handleBackToHome}

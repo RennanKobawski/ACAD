@@ -19,7 +19,8 @@ const TimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => {
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = e.target.value;
     const [hours, minutes] = newTime.split(':').map(Number);
-    if (hours !== undefined && minutes !== undefined) {
+
+    if (!isNaN(hours) && !isNaN(minutes)) {
       const newDate = new Date();
       newDate.setHours(hours);
       newDate.setMinutes(minutes);
@@ -28,13 +29,19 @@ const TimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => {
     }
   };
 
+  const handleBlur = () => {
+    const [hours, minutes] = time.split(':').map(str => str.padStart(2, '0'));
+    setTime(`${hours}:${minutes}`);
+  };
+
   return (
     <div className="flex flex-col">
       <input
         type="time"
         value={time}
         onChange={handleTimeChange}
-        className="p-2 border-2 border-primary rounded-md w-[96%] h-7 text-sm text-muted-foreground bg-muted"
+        onBlur={handleBlur}
+        className="p-2 border-2 border-primary rounded-md w-[96%] h-7 text-sm text-[#515151] bg-muted/50 font-semibold"
       />
     </div>
   );

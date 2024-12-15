@@ -9,6 +9,7 @@ import { eventColumns } from "../../_columns";
 import { getEvents } from "../../../_actions/getEvents";
 import AddEventButton from "../../_components/AddEventButton";
 import { Input } from "@/app/_components/_ui/input";
+import { SearchIcon } from "lucide-react";
 
 interface AtendimentoProps {
   params: {
@@ -75,13 +76,18 @@ const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
       <Header />
       <div className="flex flex-col space-y-6 overflow-hidden p-6">
         <div className="flex w-full items-center justify-between">
-          <Input
-            type="text"
-            placeholder="Pesquisar ocorrências..."
-            className="px-4 py-4 border-2 rounded-lg text-sm max-w-[150px]"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="relative">
+            <Input
+              type="text"
+              placeholder="Pesquisar ocorrências..."
+              className="pl-4 pr-10 py-4 border-2 rounded-lg text-sm max-w-[150px]"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="absolute top-1/2 right-4 transform -translate-y-1/2 ">
+              <SearchIcon size={22} />
+            </div>
+          </div>
           <AddEventButton />
         </div>
         <DataTable columns={eventColumns} data={filteredEvents} />

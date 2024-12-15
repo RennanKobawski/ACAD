@@ -39,7 +39,7 @@ const Header = () => {
                 </div>
 
                 <Select>
-                  <SelectTrigger className="w-[60px] hidden xs:flex border-none">
+                  <SelectTrigger className="w-[60px] hidden xs:flex border-none bg-transparent">
                     <Avatar>
                       <AvatarImage src={session.user.image || ""} />
                     </Avatar>
