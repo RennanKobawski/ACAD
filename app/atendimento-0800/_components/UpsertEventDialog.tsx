@@ -192,8 +192,8 @@ const UpsertEventDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {Object.entries(EVENT_TYPES).map(([key, value]) => (
-                        <SelectItem key={key} value={key}>
+                      {Object.entries(EVENT_TYPES).map(([index, value]) => (
+                        <SelectItem key={index} value={value}>
                           {value}
                         </SelectItem>
                       ))}

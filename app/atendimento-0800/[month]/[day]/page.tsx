@@ -5,10 +5,10 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { isMatch } from "date-fns";
 import { DataTable } from "../../../_components/_ui/data-table";
-import { ScrollArea } from "../../../_components/_ui/scroll-area";
 import { eventColumns } from "../../_columns";
 import { getEvents } from "../../../_actions/getEvents";
 import AddEventButton from "../../_components/AddEventButton";
+import { Input } from "@/app/_components/_ui/input";
 
 interface AtendimentoProps {
   params: {
@@ -35,6 +35,7 @@ interface Event {
 const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
   const { data: session } = useSession();
   const [events, setEvents] = useState<Event[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     if (!session) {
@@ -48,8 +49,8 @@ const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
 
     if (monthIsInvalid || dayIsInvalid) {
       const currentDate = new Date();
-      const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const currentDay = String(currentDate.getDate()).padStart(2, '0');
+      const currentMonth = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const currentDay = String(currentDate.getDate()).padStart(2, "0");
       redirect(`/atendimento-0800/${currentMonth}/${currentDay}`);
     }
   }, [month, day]);
@@ -60,17 +61,30 @@ const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
     }
   }, [session]);
 
+  const filteredEvents = events.filter((event) =>
+    Object.values(event).some((value) => {
+      if (typeof value === "string") {
+        return value.toLowerCase().includes(searchTerm.toLowerCase());
+      }
+      return false;
+    })
+  );
+
   return (
     <div>
       <Header />
       <div className="flex flex-col space-y-6 overflow-hidden p-6">
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-2xl font-bold"></h1>
+          <Input
+            type="text"
+            placeholder="Pesquisar ocorrências..."
+            className="px-4 py-4 border-2 rounded-lg text-sm max-w-[150px]"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <AddEventButton />
         </div>
-        <ScrollArea className="h-full">
-          <DataTable columns={eventColumns} data={events} />
-        </ScrollArea>
+        <DataTable columns={eventColumns} data={filteredEvents} />
       </div>
     </div>
   );

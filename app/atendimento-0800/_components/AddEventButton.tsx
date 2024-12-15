@@ -21,11 +21,11 @@ const AddEventButton = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="rounded-md font-bold px-2 py-1 text-base"
+              className="rounded-md font-bold px-4 py-1 text-sm max-w-full"
               onClick={() => setDialogIsOpen(true)}
               size={'lg'}
             >
-              Adicionar ocorrência
+              <span className="hidden sm:block">Adicionar ocorrência</span>
               <PlusIcon />
             </Button>
           </TooltipTrigger>

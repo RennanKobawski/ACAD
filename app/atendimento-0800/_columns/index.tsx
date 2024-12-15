@@ -13,13 +13,10 @@ export const eventColumns: ColumnDef<Event>[] = [
     accessorKey: "occasion",
     header: "Ocorrência",
     cell: ({ row: { original: event } }) => {
-      const occasionIndex = Number(event.occasion);
-      const occasion =
-        !isNaN(occasionIndex) &&
-        occasionIndex >= 0 &&
-        occasionIndex < EVENT_TYPES.length
-          ? EVENT_TYPES[occasionIndex]
-          : "Desconhecida";
+      const occasionIndex = EVENT_TYPES.indexOf(event.occasion);
+    
+      const occasion = occasionIndex >= 0 ? EVENT_TYPES[occasionIndex] : "Desconhecida";
+    
       return occasion;
     },
   },
