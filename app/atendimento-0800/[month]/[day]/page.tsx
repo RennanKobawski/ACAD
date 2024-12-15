@@ -1,7 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use server';
+
 import Header from "../../../_components/Header";
-import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { isMatch } from "date-fns";
 import { DataTable } from "../../../_components/_ui/data-table";
@@ -18,58 +17,19 @@ interface AtendimentoProps {
   };
 }
 
-interface Event {
-  id: number;
-  userId: string;
-  address: string;
-  occasion: string;
-  vtr: string;
-  startTime: Date;
-  activationTime: Date | null;
-  endTime: Date | null;
-  arrivalTime: Date | null;
-  note: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export default async function AtendimentoPage({ params: { month, day } }: AtendimentoProps) {
+  const monthIsInvalid = !month || !isMatch(month, "MM");
+  const dayIsInvalid = !day || !isMatch(day, "dd");
 
-const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
-  const { data: session } = useSession();
-  const [events, setEvents] = useState<Event[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  if (monthIsInvalid || dayIsInvalid) {
+    const currentDate = new Date();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const currentDay = String(currentDate.getDate()).padStart(2, "0");
+    redirect(`/atendimento-0800/${currentMonth}/${currentDay}`);
+  }
 
-  useEffect(() => {
-    if (!session) {
-      redirect("/");
-    }
-  }, [session]);
-
-  useEffect(() => {
-    const monthIsInvalid = !month || !isMatch(month, "MM");
-    const dayIsInvalid = !day || !isMatch(day, "dd");
-
-    if (monthIsInvalid || dayIsInvalid) {
-      const currentDate = new Date();
-      const currentMonth = String(currentDate.getMonth() + 1).padStart(2, "0");
-      const currentDay = String(currentDate.getDate()).padStart(2, "0");
-      redirect(`/atendimento-0800/${currentMonth}/${currentDay}`);
-    }
-  }, [month, day]);
-
-  useEffect(() => {
-    if (session) {
-      getEvents().then(setEvents);
-    }
-  }, [session]);
-
-  const filteredEvents = events.filter((event) =>
-    Object.values(event).some((value) => {
-      if (typeof value === "string") {
-        return value.toLowerCase().includes(searchTerm.toLowerCase());
-      }
-      return false;
-    })
-  );
+  const events = await getEvents(); // Busca no servidor
+  const filteredEvents = events; // Filtro pode ser ajustado no lado cliente
 
   return (
     <div>
@@ -81,19 +41,15 @@ const AtendimentoPage = ({ params: { month, day } }: AtendimentoProps) => {
               type="text"
               placeholder="Pesquisar..."
               className="pl-4 sm:pr-10 py-4 border-2 rounded-lg text-sm max-w-[150px]"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <div className="absolute top-1/2 right-4 transform -translate-y-1/2 ">
+            <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
               <SearchIcon size={22} />
             </div>
           </div>
-          {session?.user?.role === "UCCOPAgent" && <AddEventButton />}
+          <AddEventButton />
         </div>
         <DataTable columns={eventColumns} data={filteredEvents} />
       </div>
     </div>
   );
-};
-
-export default AtendimentoPage;
+}

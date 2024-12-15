@@ -2,9 +2,9 @@
 
 import prisma from "@/app/_lib/prisma";
 import { getServerSession } from "next-auth/next";
-import { revalidatePath } from "next/cache";
 import { upsertEventSchema } from "./schema";
 import { authOptions } from "@/app/_lib/auth";
+import { revalidatePath } from "next/cache";
 
 interface UpsertEventParams {
   id?: number;
@@ -68,5 +68,10 @@ export const upsertEvent = async (params: UpsertEventParams) => {
       id: id ?? 0,
     },
   });
-  revalidatePath(`/atendimento-0800`);
+
+  const month = new Date().getMonth() + 1;  
+  const day = new Date().getDate();
+  const path = `/atendimento-0800/${month}/${day}`;
+
+  revalidatePath(path);
 };

@@ -11,5 +11,9 @@ export const deleteEvent = async ({ eventId }: DeleteEventSchema) => {
     },
   });
 
-  revalidatePath(`/atendimento-0800`);
+  const month = new Date().getMonth() + 1;  
+  const day = new Date().getDate();
+  const path = `/atendimento-0800/${month}/${day}`;
+
+  revalidatePath(path);
 };
