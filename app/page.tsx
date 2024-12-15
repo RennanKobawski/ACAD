@@ -32,15 +32,15 @@ export default function Home() {
                   return (
                     <Link href={href} key={card.id} className="w-full">
                       <Card className="bg-transparent border-2 border-primary p-2 h-[200px] max-w-[200px] flex flex-col items-center justify-between">
-                        <CardContent className="flex items-center justify-center h-[50%]">
+                        <CardContent className="flex items-center justify-center my-auto">
                           <Image
                             src={card.imageUrl!}
                             alt={card.title}
-                            width={50}
-                            height={50}
+                            width={74}
+                            height={74}
                           />
                         </CardContent>
-                        <CardHeader className="text-center font-bold text-lg">
+                        <CardHeader className="text-center font-bold text-base">
                           {card.title}
                         </CardHeader>
                       </Card>
