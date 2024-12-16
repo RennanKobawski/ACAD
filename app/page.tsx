@@ -17,7 +17,6 @@ export default function Home() {
       <Header />
       {session?.user ? (
         <main className="text-center mt-10">
-          <Navbar />
           <section className="flex flex-col items-center justify-center">
             <h1 className="text-3xl font-bold text-black mt-10">
               Menu de Acesso Rápido

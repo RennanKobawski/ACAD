@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "./_ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
 import { Role } from "@prisma/client";
+import { Button } from "@/app/_components/_ui/button";
+import { revalidatePage } from "@/app/_actions/revalidatePage";
 import { updateRole } from "../_actions/updateRoleUser";
 
 interface RoleSelectorProps {
@@ -13,16 +14,24 @@ interface RoleSelectorProps {
 
 const RoleSelector: React.FC<RoleSelectorProps> = ({ userId }) => {
   const [loading, setLoading] = useState(false);
-
   const handleUpdateRole = async (role: Role) => {
     setLoading(true);
     try {
+      const month = new Date().getMonth() + 1;  
+      const day = new Date().getDate();
+      const path = `/atendimento-0800/${month}/${day}`;
+      
       await updateRole(userId, role);
+
+      await revalidatePage("/");
+      
+      // não esta funcionando o revalidatePath
+      await revalidatePage(path);
+
       toast("Setor atualizado com sucesso!", {
         description: `Seu setor foi atribuído. Bom trabalho!`,
       });
     } catch (error) {
-      console.error("Erro ao atualizar o setor:", error);
       toast("Erro ao atualizar o setor.", {
         description: "Por favor, tente novamente.",
       });

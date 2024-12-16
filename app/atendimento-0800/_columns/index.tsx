@@ -2,7 +2,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Event } from "@prisma/client";
 import { EVENT_TYPES } from "@/app/_constants/events";
-import ActionsCell from "../_components/ActionsCell";
+import ClientActionsCell from "../_components/ClientActionsCell";
+
 
 export const eventColumns: ColumnDef<Event>[] = [
   {
@@ -74,7 +75,7 @@ export const eventColumns: ColumnDef<Event>[] = [
     accessorKey: "actions",
     header: "Ações",
     cell: ({ row: { original: event } }) => {
-      return <ActionsCell event={event} />; 
+      return <ClientActionsCell event={event} />; 
     },
   },
 ];

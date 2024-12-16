@@ -1,6 +1,5 @@
 "use server"
-import { revalidatePath } from 'next/cache';
-import prisma from '../_lib/prisma'
+import prisma from '@/app/_lib/prisma';
 
 export const getEvents = async () => {
 

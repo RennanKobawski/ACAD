@@ -2,21 +2,29 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Header from "../_components/Header";
-import RoleSelector from "../_components/RoleSelector";
 import { Button } from "../_components/_ui/button";
 import { ArrowLeftToLine } from "lucide-react";
 import { useRouter } from "next/navigation";
+import RoleSelector from "./_components/RoleSelector";
+import { revalidatePage } from "../_actions/revalidatePage";
 
 const SelectRolePage = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleBackToHome = () => {
+  const handleBackToHome = async () => {
     setLoading(true);
     setTimeout(() => {
     router.push("/");
     }, 1500);
+
+    const month = new Date().getMonth() + 1;  
+    const day = new Date().getDate();
+    const path = `/atendimento-0800/${month}/${day}`;
+
+    // Não esta dando revalidatePath
+    await revalidatePage(path);
   };
 
   return (
@@ -33,7 +41,6 @@ const SelectRolePage = () => {
 
         {session?.user && <RoleSelector userId={session.user.id} />}
 
-        {/* Precisa fazer um revalidate path para retirar o "Selecione seu setor da Home Page" */}
         <Button
           variant={"outline"}
           onClick={handleBackToHome}
