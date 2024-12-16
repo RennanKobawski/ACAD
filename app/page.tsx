@@ -1,7 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Header from "./_components/Header";
-import Navbar from "./_components/Navbar";
 import { homePageCards } from "./_data";
 import { Card, CardContent, CardHeader } from "./_components/_ui/card";
 import Link from "next/link";

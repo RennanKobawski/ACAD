@@ -1,5 +1,3 @@
-import { generateDynamicUrl } from "../_actions/generateDynamicPath";
-
 export const socialMedias = [
   {
     id: 1,
