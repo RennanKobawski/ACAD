@@ -7,6 +7,8 @@ import { Event } from "@prisma/client";
 import { DataTable } from "@/app/_components/_ui/data-table";
 import { eventColumns } from "../_columns";
 import AddEventButton from "./AddEventButton";
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 interface AtendimentoClientProps {
   events: Event[];
@@ -15,6 +17,8 @@ interface AtendimentoClientProps {
 
 const AtendimentoClient: React.FC<AtendimentoClientProps> = ({ events, session }) => {
   const [search, setSearch] = useState("");
+
+  const currentDate = format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
 
   const filteredEvents = useMemo(() => {
     if (!search) return events;
@@ -30,6 +34,7 @@ const AtendimentoClient: React.FC<AtendimentoClientProps> = ({ events, session }
   return (
     <div>
       <div className="flex flex-col space-y-6 overflow-hidden p-6">
+        <h2 className="text-2xl font-bold tracking-tight">{currentDate}</h2>
         <div className="flex w-full items-center justify-between">
           <div className="relative">
             <Input
