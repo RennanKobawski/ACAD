@@ -172,7 +172,6 @@ const UpsertTalonDialog = ({
   };
 
   const isQar1Filled = form.watch("startQar1") && form.watch("endQar1");
-  const [endKm, setEndKm] = useState<number | string>(0);
 
   return (
     <Dialog
@@ -183,20 +182,20 @@ const UpsertTalonDialog = ({
       }}
     >
       <DialogTrigger asChild></DialogTrigger>
-      <DialogContent className="flex flex-col justify-center rounded-lg max-w-[80%] sm:max-w-[600px]">
+      <DialogContent className="flex flex-col justify-center rounded-lg max-w-[80%] max-h-[92%] sm:max-w-[600px]">
         <DialogHeader className="flex flex-col items-center">
-          <DialogTitle className="text-xl font-bold">
+          <DialogTitle className="text-lg sm:text-xl font-bold">
             {isUpdate ? "Atualizar" : "Criar"} Talão
           </DialogTitle>
           <DialogDescription className="font-semibold text-[#515151]">
-            Insira as informações abaixo.
+            {isUpdate ? "" : "Insira as informações abaixo."}
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-1 sm:gap-2"
           >
             <div className="flex gap-10">
               <FormField
@@ -307,7 +306,7 @@ const UpsertTalonDialog = ({
                       <Input
                         type="text"
                         {...field}
-                        onChange={(e) => setEndKm(e.target.value)}
+                        onChange={(e) => handleNumberInputChange(e, field)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -398,7 +397,7 @@ const UpsertTalonDialog = ({
               control={form.control}
               name="note"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mb-2">
                   <FormLabel className="text-sm">Observação</FormLabel>
                   <FormControl>
                     <Textarea {...field} className="min-h-[40px]" />
@@ -410,11 +409,11 @@ const UpsertTalonDialog = ({
 
             <DialogFooter className="flex justify-end">
               <DialogClose asChild>
-                <Button type="button" variant="destructive_outline">
+                <Button type="button" variant="destructive_outline" className="py-2 sm:py-0">
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit" className="w-[40%]">
+              <Button type="submit" className="w-[40%] py-2 sm:py-0">
                 {isUpdate ? "Atualizar" : "Adicionar"} talão
               </Button>
             </DialogFooter>

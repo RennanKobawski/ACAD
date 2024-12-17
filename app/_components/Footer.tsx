@@ -9,7 +9,7 @@ const Footer = () => {
     <Card className="border-none bg-foreground min-h-[40px] px-2 rounded-none flex items-center justify-between font-semibold text-[#DADADA]">
       <div className="flex justify-between items-center w-full">
         <div className="flex gap-10">
-          <p className="text-xs">Copyright &copy; CET Santos</p>
+          <p className="text-xs">Copyright &copy; <Link href={"https://cetsantos.com.br/"} className="hover:underline">CET Santos</Link></p>
           <div className="hidden md:flex text-xs gap-2 md:items-center md:justify-center">
             {linksTopHeader.map((link) => (
               <div className="border-r border-border pr-2" key={link.id}>
