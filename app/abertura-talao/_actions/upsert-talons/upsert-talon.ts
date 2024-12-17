@@ -11,7 +11,7 @@ interface UpsertTalonParams {
   vtr: string;
   responsible: string;
   startHour: Date;
-  endHour?: Date; 
+  endHour?: Date;
   startKm: number;
   endKm?: number;
   percKm?: number;
@@ -54,7 +54,6 @@ export const upsertTalon = async (params: UpsertTalonParams) => {
 
   const count = await prisma.talon.count({
     where: {
-      userId,
       createdAt: {
         gte: startOfDay,
         lt: endOfDay,
@@ -64,42 +63,64 @@ export const upsertTalon = async (params: UpsertTalonParams) => {
 
   const dailyIndex = count + 1;
 
-  await prisma.talon.upsert({
-    where: { id: id },
-    update: {
-      ht,
-      vtr,
-      responsible,
-      startHour,
-      endHour,
-      startKm,
-      endKm,
-      percKm,
-      startQar1,
-      endQar1,
-      startQar2,
-      endQar2,
-      note,
-      updatedAt: new Date(),
-    },
-    create: {
-      ht,
-      vtr,
-      responsible,
-      startHour,
-      endHour,
-      startKm,
-      endKm,
-      percKm,
-      startQar1,
-      endQar1,
-      startQar2,
-      endQar2,
-      note,
-      userId,
-      dailyIndex,
-    },
-  });
+  if (id) {
+    await prisma.talon.upsert({
+      where: { id: id },
+      update: {
+        ht,
+        vtr,
+        responsible,
+        startHour,
+        endHour,
+        startKm,
+        endKm,
+        percKm,
+        startQar1,
+        endQar1,
+        startQar2,
+        endQar2,
+        note,
+        updatedAt: new Date(),
+      },
+      create: {
+        ht,
+        vtr,
+        responsible,
+        startHour,
+        endHour,
+        startKm,
+        endKm,
+        percKm,
+        startQar1,
+        endQar1,
+        startQar2,
+        endQar2,
+        note,
+        userId,
+        dailyIndex,
+      },
+    });
+  } else {
+    await prisma.talon.create({
+      data: {
+        ht,
+        vtr,
+        responsible,
+        startHour,
+        endHour,
+        startKm,
+        endKm,
+        percKm,
+        startQar1,
+        endQar1,
+        startQar2,
+        endQar2,
+        note,
+        userId,
+        dailyIndex,
+      },
+    });
+  }
 
   const month = now.getMonth() + 1;
   const day = now.getDate();

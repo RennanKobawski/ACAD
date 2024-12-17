@@ -40,46 +40,62 @@ interface UpsertTalonDialogProps {
 type FormSchema = z.infer<typeof upsertTalonSchema>;
 
 const validateTimesAndValues = (data: FormSchema) => {
-  if (
-    data.startHour &&
-    data.endHour &&
-    data.startHour.getTime() >= data.endHour.getTime()
-  ) {
-    toast.error("A Hora de Início deve ser menor que a Hora de Fim.");
-    return false;
+  const isNextDay = (start: Date, end: Date) => {
+    return (
+      end.getDate() > start.getDate() ||
+      (end.getDate() === start.getDate() + 1 && end.getHours() <= 5)
+    );
+  };
+
+  if (data.startHour && data.endHour) {
+    const startTime = data.startHour.getTime();
+    const endTime = data.endHour.getTime();
+
+    if (!(endTime > startTime || isNextDay(data.startHour, data.endHour))) {
+      toast.error(
+        "A Hora de Início deve ser menor que a Hora de Fim (até às 05h do dia seguinte é permitido)."
+      );
+      return false;
+    }
   }
 
   if (
     data.startKm !== undefined &&
     data.endKm !== undefined &&
-    data.startKm <= data.endKm
+    data.startKm >= data.endKm
   ) {
     toast.error(
-      "A Quilometragem Inicial deve ser maior que a Quilometragem Final."
+      "A Quilometragem Final deve ser maior que a Quilometragem Inicial."
     );
     return false;
   }
 
-  if (
-    data.startQar1 !== undefined &&
-    data.endQar1 !== undefined &&
-    data.startQar1 <= data.endQar1
-  ) {
-    toast.error(
-      "O valor de Qar1 Inicial deve ser maior que o valor de Qar1 Final."
-    );
-    return false;
+  if (data.startQar1 !== undefined && data.endQar1 !== undefined) {
+    if (
+      !(
+        data.endQar1 > data.startQar1 ||
+        isNextDay(data.startHour!, data.endHour!)
+      )
+    ) {
+      toast.error(
+        "O valor de Qar 1 Final deve ser maior que o valor de Qar 1 Inicial (com dia seguinte até 05h permitido)."
+      );
+      return false;
+    }
   }
 
-  if (
-    data.startQar2 !== undefined &&
-    data.endQar2 !== undefined &&
-    data.startQar2 <= data.endQar2
-  ) {
-    toast.error(
-      "O valor de Qar2 Inicial deve ser maior que o valor de Qar2 Final."
-    );
-    return false;
+  if (data.startQar2 !== undefined && data.endQar2 !== undefined) {
+    if (
+      !(
+        data.endQar2 > data.startQar2 ||
+        isNextDay(data.startHour!, data.endHour!)
+      )
+    ) {
+      toast.error(
+        "O valor de Qar 2 Final deve ser maior que o valor de Qar 2 Inicial (com dia seguinte até 05h permitido)."
+      );
+      return false;
+    }
   }
 
   return true;

@@ -15,7 +15,7 @@ interface AberturaTalaoUCCOPClientProps {
   session: any;
 }
 
-const AberturaTalaoUCCOPClient: React.FC<AberturaTalaoUCCOPClientProps> = ({ talons, session }) => {
+const AberturaTalaoUCCOPClient: React.FC<AberturaTalaoUCCOPClientProps> = ({ talons }) => {
   const [search, setSearch] = useState("");
 
   const currentDate = format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
@@ -48,7 +48,7 @@ const AberturaTalaoUCCOPClient: React.FC<AberturaTalaoUCCOPClientProps> = ({ tal
               <SearchIcon size={22} />
             </div>
           </div>
-          {session?.user.role === "UCCOPAgent" && <AddTalonButton />}
+          <AddTalonButton />
         </div>
         <DataTable columns={talonColumns} data={filteredTalons} />
       </div>
