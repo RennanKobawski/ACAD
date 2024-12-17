@@ -23,7 +23,7 @@ const SelectRolePage = () => {
     const day = new Date().getDate();
     const path = `/atendimento-0800/${month}/${day}`;
 
-    // Não esta dando revalidatePath
+    // TODO: Não esta dando revalidatePath
     await revalidatePage(path);
   };
 

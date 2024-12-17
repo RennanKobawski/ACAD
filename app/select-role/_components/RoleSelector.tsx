@@ -25,7 +25,7 @@ const RoleSelector: React.FC<RoleSelectorProps> = ({ userId }) => {
 
       await revalidatePage("/");
       
-      // não esta funcionando o revalidatePath
+      //TODO: não esta funcionando o revalidatePath
       await revalidatePage(path);
 
       toast("Setor atualizado com sucesso!", {
