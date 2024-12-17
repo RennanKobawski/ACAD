@@ -7,7 +7,7 @@ import { authOptions } from "@/app/_lib/auth";
 import { revalidatePath } from "next/cache";
 
 interface UpsertEventParams {
-  id?: number;
+  id: number;
   address: string;
   occasion: string;
   vtr: string;

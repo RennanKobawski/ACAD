@@ -1,14 +1,14 @@
 'use client'
 import { useSession } from "next-auth/react";
 import { Event } from "@prisma/client";
-import EditEventButton from "./edit-event-button";
-import DeleteEventButton from "./delete-event-button";
+import EditEventButton from "./EditEventButton";
+import DeleteEventButton from "./DeleteEventButton";
 
-interface ActionsCellProps {
+interface EventsCellProps {
   event: Event;
 }
 
-const ActionsCell: React.FC<ActionsCellProps> = ({ event }) => {
+const EventsCell = ({ event }: EventsCellProps) => {
   const { data: session } = useSession();
   const userRole = session?.user?.role;
 
@@ -20,4 +20,4 @@ const ActionsCell: React.FC<ActionsCellProps> = ({ event }) => {
   );
 };
 
-export default ActionsCell;
+export default EventsCell;

@@ -5,7 +5,7 @@ export const getEvents = async () => {
 
     const events = await prisma.event.findMany({
         orderBy: {
-            startTime: 'asc',
+            startTime: 'desc',
         },
     });
 

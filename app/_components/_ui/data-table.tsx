@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  Sem ocorrências registradas.
+                  Sem registros por enquanto.
                 </TableCell>
               </TableRow>
             )}

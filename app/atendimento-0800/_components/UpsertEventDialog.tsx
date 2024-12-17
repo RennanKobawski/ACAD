@@ -20,7 +20,7 @@ import {
 import { Input } from "@/app/_components/_ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { upsertEvent } from "@/app/_actions/upsert-events/upsert-event";
+import { upsertEvent } from "@/app/atendimento-0800/_actions/upsert-events/upsert-event";
 import { z } from "zod";
 import {
   Select,
@@ -34,6 +34,7 @@ import { Textarea } from "@/app/_components/_ui/textarea";
 import TimeInput from "@/app/_components/_ui/time-input";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { upsertEventSchema } from "../_actions/upsert-events/schema";
 
 interface UpsertEventDialogProps {
   isOpen: boolean;
@@ -42,26 +43,7 @@ interface UpsertEventDialogProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 
-const formSchema = z.object({
-  address: z.string().trim().min(1, {
-    message: "O endereço é obrigatório.",
-  }),
-  occasion: z.string().trim().min(1, {
-    message: "A ocorrência é obrigatória.",
-  }),
-  startTime: z.date({
-    required_error: "A hora de início é obrigatória.",
-  }),
-  vtr: z.string({
-    required_error: "A VTR é obrigatório.",
-  }),
-  activationTime: z.date().optional(),
-  endTime: z.date().optional(),
-  arrivalTime: z.date().optional(),
-  note: z.string(),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
+type FormSchema = z.infer<typeof upsertEventSchema>;
 
 const validateTimes = (data: FormSchema) => {
   if (
@@ -105,7 +87,7 @@ const UpsertEventDialog = ({
   const userId = session?.user?.id;
 
   const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(upsertEventSchema),
     defaultValues: defaultValues ?? {
       address: "",
       occasion: "",
@@ -133,7 +115,8 @@ const UpsertEventDialog = ({
 
     await upsertEvent({
       ...data,
-      id: eventId,
+      id: eventId ?? 0,
+      note: data.note ?? "",
     });
  
     toast.success(

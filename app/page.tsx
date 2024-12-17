@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader } from "./_components/_ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import GoogleInput from "./_components/GoogleInput";
-import { generateDynamicUrl } from "./_actions/generateDynamicPath";
+import { generateDynamicHref } from "./_actions/generateDynamicHref";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -24,7 +24,7 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {homePageCards.map((card) => {
                   const href = card.dynamic
-                    ? generateDynamicUrl(card.href)
+                    ? generateDynamicHref(card.href, session.user.role)
                     : card.href;
 
                   return (

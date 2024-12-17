@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Event } from "@prisma/client";
 import { EVENT_TYPES } from "@/app/_constants/events";
-import ClientActionsCell from "../_components/ClientActionsCell";
-
+import EventsActionsCell from "../_components/EventsActionsCell";
 
 export const eventColumns: ColumnDef<Event>[] = [
   {
@@ -15,9 +14,10 @@ export const eventColumns: ColumnDef<Event>[] = [
     header: "Ocorrência",
     cell: ({ row: { original: event } }) => {
       const occasionIndex = EVENT_TYPES.indexOf(event.occasion);
-    
-      const occasion = occasionIndex >= 0 ? EVENT_TYPES[occasionIndex] : "Desconhecida";
-    
+
+      const occasion =
+        occasionIndex >= 0 ? EVENT_TYPES[occasionIndex] : "Desconhecida";
+
       return occasion;
     },
   },
@@ -75,7 +75,7 @@ export const eventColumns: ColumnDef<Event>[] = [
     accessorKey: "actions",
     header: "Ações",
     cell: ({ row: { original: event } }) => {
-      return <ClientActionsCell event={event} />; 
+      return <EventsActionsCell event={event} />;
     },
   },
 ];

@@ -59,20 +59,21 @@ model Session {
 
 model Talon {
   id          Int      @id @default(autoincrement())
+  dailyIndex  Int
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   ht          Int
-  vtr         Int
+  vtr         String
   responsible String
   startHour   DateTime
-  endHour     DateTime
+  endHour     DateTime?
   startKm     Int
-  endKm       Int
-  percKm      Int
-  startQar1   DateTime
-  endQar1     DateTime
-  startQar2   DateTime
-  endQar2     DateTime
+  endKm       Int?
+  percKm      Int?
+  startQar1   DateTime?
+  endQar1     DateTime?
+  startQar2   DateTime?
+  endQar2     DateTime?
   note        String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

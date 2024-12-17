@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Talon" ALTER COLUMN "vtr" SET DATA TYPE TEXT;

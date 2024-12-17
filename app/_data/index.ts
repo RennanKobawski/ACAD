@@ -37,102 +37,60 @@ export const linksTopHeader = [
   },
 ];
 
-export const navbarLinksUCCOP = [
-    {
-        id: 1,
-        title: "Atendimento 0800",
-        href: "/atendimento-0800",
-        dynamic: true,
-      },
-      {
-        id: 2,
-        title: "Abertura de Talão",
-        href: "/abertura-talao",
-        dynamic: true,
-      },
-      {
-        id: 3,
-        title: "Lista de Materiais",
-        href: "externo",
-        dynamic: false,
-      },
-];
-
-export const navbarLinksOperational = [
-  {
-    id: 1,
-    title: "Atendimento 0800",
-    href: "/atendimento-0800",
-    dynamic: true,
-  },
-  {
-    id: 2,
-    title: "Abertura de Talão",
-    href: "/abertura-talao",
-    dynamic: true,
-  },
-  {
-    id: 3,
-    title: "Lista de Materiais",
-    href: "externo",
-    dynamic: false,
-  },
-];
-
 export const homePageCards = [
   {
     id: 1,
-    title: "Atendimento 0800",
-    href: "/atendimento-0800",
-    imageUrl: "/atendimento.svg",
-    dynamic: true,
-  },
-  {
-    id: 2,
     title: "Abertura de Talão",
     href: "/abertura-talao",
     imageUrl: "/abertura-talao.svg",
     dynamic: true,
   },
   {
+    id: 2,
+    title: "Atendimento 0800",
+    href: "/atendimento-0800",
+    imageUrl: "/atendimento.svg",
+    dynamic: true,
+  },
+  {
     id: 3,
     title: "Lista de Materiais",
-    href: "externo",
+    href: "https://drive.google.com/drive/u/0/folders/1PzvK40DntQTw_rOZxdaPNOVsvYq-Cjta",
     imageUrl: "/lista-materiais.svg",    
     dynamic: false,
   },
   {
     id: 4,
     title: "Todas as Falhas",
-    href: "externo",
+    href: "https://drive.google.com/drive/u/0/folders/0B0Tn8gnvbED5bVNMWUtNNGN2Yzg?resourcekey=0-g2MJ_uvt1GVa3zeM_XsklA",
     imageUrl: "/todas-falhas.svg",
     dynamic: false,
   },
   {
     id: 5,
     title: "Travessias Escolares",
-    href: "externo",
+    href: "https://drive.google.com/drive/u/0/folders/1t7um493_fHWA-uBHZ2pPOsGw_nqWbI_g",
     imageUrl: "/travessia-escolar.svg",
     dynamic: false,
   },
   {
     id: 6,
     title: "Mapa das Áreas e Câmeras",
-    href: "externo",
+    href: "https://www.google.com/maps/d/u/0/viewer?mid=1EdB88N2oEcNlFZhLBakWlcSB5R1A32I&ll=-23.94880121489128%2C-46.34767993898037&z=14",
     imageUrl: "/mapa.svg",
     dynamic: false,
   },
   {
     id: 7,
     title: "Pátio VTX",
-    href: "externo",
+    href: "https://www.vtx2.com.br/Sistema/index.php?p=userS",
     imageUrl: "/patio.svg",
     dynamic: false,
   },
   {
     id: 8,
     title: "Waze",
-    href: "externo",
+    href: "https://www.waze.com/partnerhub/user-lobby/lobby?redirect=%252Fpartnerhub%252Fmap-tool",
     imageUrl: "/waze.svg",
     dynamic: false,
   },
