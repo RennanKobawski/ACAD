@@ -17,7 +17,6 @@ export const getAllTalonsByMonth = async () => {
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const startOfNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-  // Buscar os talons apenas do usuário logado
   const talons = await prisma.talon.findMany({
     where: {
       createdAt: {
