@@ -7,11 +7,7 @@ import { useSession } from "next-auth/react";
 
 export const talonColumns: ColumnDef<Talon>[] = [
   {
-<<<<<<< HEAD
     accessorKey: "dynamicValue",
-=======
-    accessorKey: "dynamicValue", // A chave fixa, que pode ser qualquer nome
->>>>>>> 3df5ca7a9ef20dc5513082741e2089feb50c21c7
     header: "N°",
     cell: ({ row: { original: talon } }) => {
       const { data: session } = useSession();
