@@ -12,8 +12,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "VTX3 - CET Santos",
-  description: "Site moderno e responsivo para a CET de Santos",
+  title: "ACAD - CET Santos",
+  description: "Sistema moderno e responsivo para a CET Santos",
 };
 
 export default function RootLayout({
