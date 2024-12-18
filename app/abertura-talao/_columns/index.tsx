@@ -7,13 +7,14 @@ import { useSession } from "next-auth/react";
 
 export const talonColumns: ColumnDef<Talon>[] = [
   {
+    id: "1",
     accessorKey: "dynamicValue",
     header: "N°",
     cell: ({ row: { original: talon } }) => {
       const { data: session } = useSession();
-    
+
       if (!session) return null;
-    
+
       if (session.user.role === "UCCOPAgent") {
         return talon.dailyIndex;
       } else if (session.user.role === "OperationalAgent") {
@@ -22,18 +23,22 @@ export const talonColumns: ColumnDef<Talon>[] = [
     },
   },
   {
+    id: "2",
     accessorKey: "ht",
     header: "HT",
   },
   {
+    id: "3",
     accessorKey: "vtr",
     header: "VTR",
   },
   {
+    id: "4",
     accessorKey: "responsible",
     header: "Responsável",
   },
   {
+    id: "5",
     accessorKey: "startHour",
     header: "Hora Início",
     cell: ({ row: { original: talon } }) =>
@@ -43,6 +48,7 @@ export const talonColumns: ColumnDef<Talon>[] = [
       }),
   },
   {
+    id: "6",
     accessorKey: "endHour",
     header: "Hora Fim",
     cell: ({ row: { original: talon } }) =>
@@ -54,14 +60,17 @@ export const talonColumns: ColumnDef<Talon>[] = [
         : "--:--",
   },
   {
+    id: "7",
     accessorKey: "startKm",
     header: "KM Inicial",
   },
   {
+    id: "8",
     accessorKey: "endKm",
     header: "KM Final",
   },
   {
+    id: "9",
     accessorKey: "qarBadge",
     header: "Status QAR",
     cell: ({ row }) => {
@@ -98,6 +107,7 @@ export const talonColumns: ColumnDef<Talon>[] = [
   },
 
   {
+    id: "10",
     accessorKey: "startQar1",
     header: "QAR1",
     cell: ({ row: { original: talon } }) =>
@@ -109,6 +119,7 @@ export const talonColumns: ColumnDef<Talon>[] = [
         : "--:--",
   },
   {
+    id: "11",
     accessorKey: "endQar1",
     header: "QAR1",
     cell: ({ row: { original: talon } }) =>
@@ -120,6 +131,7 @@ export const talonColumns: ColumnDef<Talon>[] = [
         : "--:--",
   },
   {
+    id: "12",
     accessorKey: "startQar2",
     header: "QAR2",
     cell: ({ row: { original: talon } }) =>
@@ -131,6 +143,7 @@ export const talonColumns: ColumnDef<Talon>[] = [
         : "--:--",
   },
   {
+    id: "13",
     accessorKey: "endQar2",
     header: "QAR2",
     cell: ({ row: { original: talon } }) =>
@@ -142,10 +155,12 @@ export const talonColumns: ColumnDef<Talon>[] = [
         : "--:--",
   },
   {
+    id: "14",
     accessorKey: "note",
     header: "Observações",
   },
   {
+    id: "15",
     accessorKey: "actions",
     header: "Ações",
     cell: ({ row: { original: talon } }) => {
