@@ -6,7 +6,7 @@ import { authOptions } from "@/app/_lib/auth";
 import { revalidatePath } from "next/cache";
 
 interface UpsertTalonParams {
-  id?: number;
+  id: number;
   ht: number;
   vtr: string;
   responsible: string;
@@ -51,6 +51,8 @@ export const upsertTalon = async (params: UpsertTalonParams) => {
   const now = new Date();
   const startOfDay = new Date(now.setHours(0, 0, 0, 0));
   const endOfDay = new Date(now.setHours(23, 59, 59, 999));
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
   const count = await prisma.talon.count({
     where: {
@@ -62,6 +64,18 @@ export const upsertTalon = async (params: UpsertTalonParams) => {
   });
 
   const dailyIndex = count + 1;
+
+  const monthlyCount = await prisma.talon.count({
+    where: {
+      userId: userId,
+      createdAt: {
+        gte: startOfMonth,
+        lt: endOfMonth,
+      },
+    },
+  });
+  const monthlyIndex = monthlyCount + 1;
+  
 
   if (id) {
     await prisma.talon.upsert({
@@ -98,6 +112,7 @@ export const upsertTalon = async (params: UpsertTalonParams) => {
         note,
         userId,
         dailyIndex,
+        monthlyIndex,
       },
     });
   } else {
@@ -118,6 +133,7 @@ export const upsertTalon = async (params: UpsertTalonParams) => {
         note,
         userId,
         dailyIndex,
+        monthlyIndex,
       },
     });
   }

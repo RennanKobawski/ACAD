@@ -153,7 +153,7 @@ const UpsertTalonDialog = ({
 
     await upsertTalon({
       ...data,
-      id: talonId,
+      id: talonId ?? 0,
     });
 
     toast.success(
@@ -409,11 +409,11 @@ const UpsertTalonDialog = ({
 
             <DialogFooter className="flex justify-end">
               <DialogClose asChild>
-                <Button type="button" variant="destructive_outline" className="py-2 sm:py-0">
+                <Button type="button" variant="destructive_outline" className="py-2 sm:py-3">
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit" className="w-[40%] py-2 sm:py-0">
+              <Button type="submit" className="w-[40%] py-2 sm:py-3">
                 {isUpdate ? "Atualizar" : "Adicionar"} talão
               </Button>
             </DialogFooter>

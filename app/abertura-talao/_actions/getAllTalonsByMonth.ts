@@ -30,5 +30,7 @@ export const getAllTalonsByMonth = async () => {
     },
   });
 
+  console.log("Talons retornados:", talons);
+  
   return talons;
 };

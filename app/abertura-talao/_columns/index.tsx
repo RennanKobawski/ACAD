@@ -11,13 +11,13 @@ export const talonColumns: ColumnDef<Talon>[] = [
     header: "N°",
     cell: ({ row: { original: talon } }) => {
       const { data: session } = useSession();
-
+    
       if (!session) return null;
-
+    
       if (session.user.role === "UCCOPAgent") {
         return talon.dailyIndex;
       } else if (session.user.role === "OperationalAgent") {
-        return talon.id;
+        return talon.monthlyIndex;
       }
     },
   },
